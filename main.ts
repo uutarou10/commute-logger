@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.198.0/http/server.ts";
-import dayjs from "npm:dayjs@1.11.9";
 import "https://deno.land/std@0.198.0/dotenv/load.ts"
 
 type Handler = (request: Request) => Promise<Response> | Response;
@@ -66,7 +65,7 @@ const register = async (_: Request): Promise<Response> => {
   console.log('res', res)
   const latestCreatedTime = res.results.at(0)?.created_time;
   if (
-    latestCreatedTime && dayjs().diff(dayjs(latestCreatedTime), "hours") <= 10
+    latestCreatedTime && Date.now() - new Date(latestCreatedTime).getTime() <= 10 * 60 * 60 * 1000
   ) {
     return new Response(
       JSON.stringify({
