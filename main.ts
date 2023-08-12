@@ -62,7 +62,6 @@ const register = async (_: Request): Promise<Response> => {
       ],
     },
   );
-  console.log('res', res)
   const latestCreatedTime = res.results.at(0)?.created_time;
   if (
     latestCreatedTime && Date.now() - new Date(latestCreatedTime).getTime() <= 10 * 60 * 60 * 1000
