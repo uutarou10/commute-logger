@@ -8,7 +8,7 @@ const withAuthentication =
   (handler: Handler) => (request: Request): Response | Promise<Response> => {
     if (
       !request.headers.has("Authorization") ||
-      request.headers.get("Authorization") !== "secret"
+      request.headers.get("Authorization") !== Deno.env.get('AUTHORIZATION_TOKEN')
     ) {
       return new Response("Authentication failed", { status: 401 });
     }
